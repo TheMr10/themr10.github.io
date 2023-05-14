@@ -3,7 +3,7 @@ layout: post
 title: Abusing /tar capabilities to escalate privileges
 date: 2023-05-13 00:12 +0000
 comments: active
-image: /assets/img/Mr10.jpg
+#image: /assets/img/Mr10.jpg
 categories: [Privilege Escalation]
 tags: [Privilege Escalation]
 ---
