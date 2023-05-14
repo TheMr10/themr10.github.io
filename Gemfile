@@ -29,3 +29,5 @@ end
 
 # Jekyll Compose
 gem 'jekyll-compose', group: [:jekyll_plugins]
+# Jekyll SEO
+gem 'jekyll-seo-tag', group: [:jekyll_plugins]
